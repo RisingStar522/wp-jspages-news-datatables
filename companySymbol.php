@@ -80,6 +80,9 @@
             width: 98% !important;
             margin:1%;
         }
+	.genExchangeSelectParentDiv{
+	    width: 100% !important;
+	}
     }
 
  	@media (min-width: 0px){
