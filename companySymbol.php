@@ -226,7 +226,7 @@ $(document).ready(function() {
             </div>
       	</div>
         <br/>
-        <div style="margin-top:30px; display:flex; flex-wrap: wrap; width: 100%;">
+        <div class="genExchangeSelectParentDiv" style="margin-top:30px; display:flex; flex-wrap: wrap; width: 100%;">
         <div class="form-group" style="width:120px; margin-right:20px">
         <select class="form-control" id="genExchangeSelect">
             <option>SG</option>
