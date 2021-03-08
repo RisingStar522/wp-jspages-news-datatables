@@ -16,7 +16,7 @@
 <style>
     .categoriesBtn{
         cursor:pointer;
-        width: 35px;
+        width: 32px;
         height: 35px;
         text-align: center;
         padding: 8px 11px !important;
@@ -51,11 +51,11 @@
         
     }
     .formwhich{
-        width:171px;
+        width:154px;
         box-shadow: 1px 1px 1px 0px #aaa;
         border-radius: 2px;
         font-family: serif;
-        font-size:17px;
+        font-size:16px;
         font-weight: 900;
         margin-top: 5px;
     }
@@ -127,30 +127,24 @@ $(document).ready(function() {
                         
                         description="";
                         description=json[2];
-                        console.log(json);
-                        if(description.length < 3 ){
-                            document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<label style='font-size: 23px; font-weight: 900;' class='genNameLagel'>"+json[1]+"</label><br/><div style='width: 100%; text-align: center; font-size: 22px; margin-bottom: 50px; font-family: calibri; font-weight: 800;'>Company details not available</div>");                            
-                        }else{
-                            if(json[1] != null){
-                            if(json[1].length>2){ 
-                                document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<label style='font-size: 23px; font-weight: 900;' class='genNameLagel'>"+json[1]+"</label><br/>");
-                            }}
+                        // console.log(json);
+                        document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<label style='font-size: 23px; font-weight: 900;' class='genNameLagel'>"+json[1]+"</label><br/>");
+                        if(json[2] == null ){
+                            document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<div style='width: 100%; text-align: center; font-size: 22px; margin-bottom: 50px; font-family: calibri; font-weight: 800;'>Company details not available</div>");                            
+                            
+                        }else{                                                        
                             if(json[3] != null){
-                            if(json[3].length>2){
                                 document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<label style='font-size: 21px; font-weight: 100;' class='AddressLabel'>Address : "+json[3]+"</label><br/>");
-                            }}
+                            }
                             if(json[9] != null){
-                            if(json[9].length>2){
                                 document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<label style='font-size: 21px; font-weight: 100;' class='PhoneLabel'>Phone : "+json[9]+"</label><br/>");
-                            }}
+                            }
                             if(json[10] != null){
-                            if(json[10].length>2){
                                 document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<label style='font-size: 21px; font-weight: 100;' class='WebSiteLabel'>WebSite : "+json[10]+"</label><br/>");
-                            }}
+                            }
                             if(json[2] != null){
-                            if(json[2].length>2){
                                 document.querySelector('.headerCompanyinfo').insertAdjacentHTML('beforeend',"<label style='font-weight:100;'>"+json[2]+"</label><br/>");
-                            }}                            
+                            }                            
                         }
                         
                     }else if(result=="1"){
@@ -183,7 +177,7 @@ $(document).ready(function() {
                 <button type="button" class="formwhich btn btn-light" id="ratios" style="font-family: calibri; font-weight: 900;">Ratios</button>
                 <button type="button" class="formwhich btn btn-light" id="valuationratios" style="font-family: calibri; font-weight: 900;">Valuation Ratios</button>
                 <button type="button" class="formwhich btn btn-light" id="valuationquality" style="font-family: calibri; font-weight: 900;">Valuation Quality</button>
-                <button type="button" class="formwhich btn btn-light" id="dividend" style="font-family: calibri; font-weight: 900;">News</button>
+                <!--button type="button" class="formwhich btn btn-light" id="dividend" style="font-family: calibri; font-weight: 900;">News</button-->
             </div>
             <div style=" font-family:calibri; width: 85%;text-align: right;border-bottom: solid;margin: auto;margin-top: 2.5rem;margin-bottom: 1.4rem;border-color: #333; padding: 0.6rem;">
                 <span style="font-family: fantasy;" id="divide_year" class="divide"> Yearly </span>
@@ -298,7 +292,7 @@ $(document).ready(function() {
                         for(i=0; i<arraylength; i++){
                             itemsString += `
                             <span class="itemoflist" itemid="`+json[i][0]+`" itemcode="`+json[i][1]+`" itemname="`+json[i][2]+`" itemexchange="`+json[i][3]+`"  title="`+json[i][2]+`" >
-                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 ">`+json[i][2]+`</div>
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 " style="padding:1px; line-height:13.5px;">`+json[i][2]+`</div>
                             </span>`;
                         }
                     }
@@ -346,6 +340,10 @@ $(document).ready(function() {
         xhr.onreadystatechange = function () { 
             if (xhr.readyState === 4 && xhr.status === 200) { 
                 result = this.responseText; 
+                // console.log("Datatable load section response");
+                // console.log(result)
+                // console.log("//Datatable load section response");
+
                 if(result != "121" && result != "1"){
                     json=JSON.parse(result);
                     resultLength=json.length;
@@ -372,33 +370,33 @@ $(document).ready(function() {
                                 $('.datalist_tbody > tr:nth-child(4)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>FTotal Equity</td>");
                                 $('.datalist_tbody > tr:nth-child(5)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Total Liabilities</td>");
                                 if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[0][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[0][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[0][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[0][3]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[0][4]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[0][5]+"</td>")
-                                }                                
-                                
-                                $('.tableHeader_label').html("Balance Sheet");
-                                for (i=0; i<resultLength-1; i++){
+                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[resultLength-1][0]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][1]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][2]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][3]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][4]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][5]+"</td>")
+                                }
+                                $('.tableHeader_label').html("Balance Sheet");                               
                                     if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[resultLength-1-i][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
-                                }else{
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
-                                }
-                                   
-                                }
+                                        for (i=0; i<resultLength-1; i++){
+                                            document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[i][0]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
+                                        }
+                                    }else{
+                                        for (i=0; i<10; i++){
+                                            document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
+                                        }                                   
+                                    }
                                 break;
                             case "persharedata":
                                 $("#datalistTable").dataTable().fnDestroy()
@@ -429,32 +427,33 @@ $(document).ready(function() {
                                 $('.datalist_tbody > tr:nth-child(8)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Revenue Share</td>");
                                 $('.datalist_tbody > tr:nth-child(9)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Total Debt Share</td>");
                                 if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[0][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[0][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[0][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[0][3]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[0][4]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[0][5]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[0][6]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[0][7]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[0][8]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[0][9]+"</td>")
+                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[resultLength-1][0]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][1]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][2]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][3]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][4]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][5]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][6]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][7]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][8]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][9]+"</td>")
                                 }
-                                
                                 $('.tableHeader_label').html("Per Share Data");                            
-                                for (i=0; i<resultLength-1; i++){
-                                    if(view=="Yearly"){
-                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[resultLength-1-i][0]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][6]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][7]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][8]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][9]+"</td>")
-                                    }else{
+                                if(view=="Yearly"){
+                                    for (i=0; i<resultLength-1; i++){
+                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[i][0]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[i][6]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[i][7]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[i][8]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[i][9]+"</td>")
+                                    }
+                                }else{
+                                    for (i=0; i<10; i++){
                                         document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
@@ -486,20 +485,21 @@ $(document).ready(function() {
                                 $('.datalist_tbody > tr:nth-child(2)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Stock issuance</td>");
                                 $('.datalist_tbody > tr:nth-child(3)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Stock repurchase</td>");
                                 if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[0][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[0][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[0][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[0][3]+"</td>")
+                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[resultLength-1][0]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][1]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][2]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][3]+"</td>")
                                 }
-                                
                                 $('.tableHeader_label').html("Cash Flow Statement");    
-                                for (i=0; i<resultLength-1; i++){
-                                    if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[resultLength-1-i][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
-                                    }else{
+                                if(view=="Yearly"){
+                                    for (i=0; i<resultLength-1; i++){
+                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[i][0]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                    }
+                                }else{
+                                    for (i=0; i<10; i++){
                                         document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
@@ -524,26 +524,26 @@ $(document).ready(function() {
                                 $('.datalist_tbody > tr:nth-child(2)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Pre Tax income</td>");
                                 $('.datalist_tbody > tr:nth-child(3)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Total Revenue</td>");
                                 if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[0][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[0][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[0][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[0][3]+"</td>")
+                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[resultLength-1][0]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][1]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][2]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1][3]+"</td>")
                                 }
                                 $('.tableHeader_label').html("Income Statement");    
-                                for (i=0; i<resultLength-1; i++){
-                                    if(view=="Yearly"){
-                                        
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[resultLength-1-i][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
-                                }else{
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
+                                if(view=="Yearly"){
+                                    for (i=0; i<resultLength-1; i++){                                        
+                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[i][0]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
-                                }
-                                    
+                                    }
+                                }else{
+                                    for (i=0; i<10; i++){
+                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                    }                                    
                                 }                           
                                 break;
                                 break;
@@ -574,41 +574,43 @@ $(document).ready(function() {
                                 $('.datalist_tbody > tr:nth-child(7)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>ROE percent</td>");
                                 $('.datalist_tbody > tr:nth-child(8)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>ROE percent adjusted</td>");   
                                 if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[0][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[0][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[0][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[0][3]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[0][4]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[0][5]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[0][6]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[0][7]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[0][8]+"</td>") 
+                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[resultLength-1-i][0]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][6]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][7]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][8]+"</td>")
                                 }
                                 $('.tableHeader_label').html("Ratios");                        
-                                for (i=0; i<resultLength-1; i++){
+                                
                                     if(view=="Yearly"){
-                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[resultLength-1-i][0]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][6]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][7]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][8]+"</td>")
+                                        for (i=0; i<resultLength-1; i++){
+                                            document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[i][0]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[i][6]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[i][7]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[i][8]+"</td>")
+                                        }
                                     }else{
-                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[i][6]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[i][7]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[i][8]+"</td>")
-
+                                        for (i=0; i<10; i++){
+                                            document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[i][6]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[i][7]+"</td>")
+                                            document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[i][8]+"</td>")
+                                        }
                                     }
-                                }
                                 break;
                             case "valuationratios":
                                 $("#datalistTable").dataTable().fnDestroy()
@@ -633,25 +635,27 @@ $(document).ready(function() {
                                 $('.datalist_tbody > tr:nth-child(5)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Price OP Flow</td>");
                                 $('.datalist_tbody > tr:nth-child(6)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Price Tangible book</td>");   
                                 if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[0][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[0][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[0][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[0][3]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[0][4]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[0][5]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[0][6]+"</td>")
+                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[resultLength-1-i][0]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][6]+"</td>")
                                 }
                                 $('.tableHeader_label').html("Valuation Ratios");                       
-                                for (i=0; i<resultLength-1; i++){
-                                    if(view=="Yearly"){
-                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[resultLength-1-i][0]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][6]+"</td>")
-                                    }else{
+                                if(view=="Yearly"){
+                                    for (i=0; i<resultLength-1; i++){
+                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[i][0]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[i][6]+"</td>")
+                                    }
+                                }else{
+                                    for (i=0; i<10; i++){
                                         document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
@@ -699,39 +703,41 @@ $(document).ready(function() {
                                 $('.datalist_tbody > tr:nth-child(12)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Shiller Ratio</td>");                        
                                 $('.datalist_tbody > tr:nth-child(13)').html("<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Sloan Ratio</td>");   
                                 if(view=="Yearly"){
-                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[0][0]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[0][1]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[0][2]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[0][3]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[0][4]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[0][5]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[0][6]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[0][7]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[0][8]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[0][9]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(10)').insertAdjacentHTML('beforeend',"<td>"+json[0][10]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(11)').insertAdjacentHTML('beforeend',"<td>"+json[0][11]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(12)').insertAdjacentHTML('beforeend',"<td>"+json[0][12]+"</td>")
-                                    document.querySelector('.datalist_tbody > tr:nth-child(13)').insertAdjacentHTML('beforeend',"<td>"+json[0][13]+"</td>")
+                                    document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>TTM"+json[resultLength-1-i][0]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][6]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][7]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][8]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][9]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(10)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][10]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(11)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][11]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(12)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][12]+"</td>")
+                                    document.querySelector('.datalist_tbody > tr:nth-child(13)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][13]+"</td>")
                                 }
                                 $('.tableHeader_label').html("Valuation Quality");                        
-                                for (i=0; i<resultLength-1; i++){
-                                    if(view=="Yearly"){
-                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[resultLength-1-i][0]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][1]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][2]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][3]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][4]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][5]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][6]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][7]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][8]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][9]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(10)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][10]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(11)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][11]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(12)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][12]+"</td>")
-                                        document.querySelector('.datalist_tbody > tr:nth-child(13)').insertAdjacentHTML('beforeend',"<td>"+json[resultLength-1-i][13]+"</td>")
-                                    }else{
+                                if(view=="Yearly"){
+                                    for (i=0; i<resultLength-1; i++){
+                                        document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>Dec"+json[i][0]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(3)').insertAdjacentHTML('beforeend',"<td>"+json[i][3]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(4)').insertAdjacentHTML('beforeend',"<td>"+json[i][4]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(5)').insertAdjacentHTML('beforeend',"<td>"+json[i][5]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(6)').insertAdjacentHTML('beforeend',"<td>"+json[i][6]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(7)').insertAdjacentHTML('beforeend',"<td>"+json[i][7]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(8)').insertAdjacentHTML('beforeend',"<td>"+json[i][8]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(9)').insertAdjacentHTML('beforeend',"<td>"+json[i][9]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(10)').insertAdjacentHTML('beforeend',"<td>"+json[i][10]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(11)').insertAdjacentHTML('beforeend',"<td>"+json[i][11]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(12)').insertAdjacentHTML('beforeend',"<td>"+json[i][12]+"</td>")
+                                        document.querySelector('.datalist_tbody > tr:nth-child(13)').insertAdjacentHTML('beforeend',"<td>"+json[i][13]+"</td>")
+                                    }
+                                }else{
+                                    for (i=0; i<10; i++){
                                         document.querySelector('.datalist_thead > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td style='font-family: calibri;font-weight: 900; font-size: 16px;'>"+json[i][0]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(1)').insertAdjacentHTML('beforeend',"<td>"+json[i][1]+"</td>")
                                         document.querySelector('.datalist_tbody > tr:nth-child(2)').insertAdjacentHTML('beforeend',"<td>"+json[i][2]+"</td>")
@@ -794,7 +800,7 @@ $(document).ready(function() {
         gencode=$(this).attr("itemcode");
         genname=genname.replace(/ /g, "-")
         genparam=genname+"-"+gencode+"-"+genExchange;
-        window.location.href=("https://www.shareandstocks.com/sgx-listed-stocks-details/?"+genparam);
+        window.open("https://www.shareandstocks.com/sgx-listed-stocks-details/?"+genparam);
         return false;
     });
 
@@ -838,9 +844,9 @@ $(document).ready(function() {
                         for(i=0; i<json.length; i++){
                             if(json[i][4]!="" && (json[i][1]) != "" && json[i][1] !=false && json[i][1] !="false"){
                             insertdata=`
-                            <div class='newsdiv' style=' padding: 10px; border: solid; border-width: 1px; border-radius: 10px; border-color: #ddd; padding-top: 8px; width: 24%; margin:0.5px'>
+                            <div class='newsdiv' style='display: grid; padding: 10px; border: solid; border-width: 1px; border-radius: 10px; border-color: #ddd; padding-top: 8px; width: 24%; margin:0.5px'>
                                 <div class='newsheader' style='text-align: center; font-size: 17px; font-weight: bold;'><a href="`+json[i][4]+`">`+json[i][1]+`</a></div></br>
-                                <div class='newsBody'>`+json[i][2]+`</div><br/>
+                                <div class='newsBody' style='overflow: hidden; text-overflow: clip; height: 150px;'>`+json[i][2]+`</div><br/>
                                 <div class='newsFooter' style="text-align: center;"><br/>
                                     <span class='footerdate'>`+json[i][3]+`</span><br/>
                                     <span class='footerlink'><br/><a href="`+json[i][4]+`">Source link</a></span>
